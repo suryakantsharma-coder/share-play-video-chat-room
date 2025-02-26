@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { useSocket } from "@/context/SocketProvider";
-import ReactPlayer from "react-player";
 import useWebRTC from "@/hooks/useWebRTC";
 import { Socket } from "socket.io-client";
-import Draggable from "react-draggable";
 
 const RoomPage = () => {
 
   const socket : Socket | null = useSocket();
   const {
-    remoteSocketId,
     myStream,
     remoteStream,
     isIncomingCall,
