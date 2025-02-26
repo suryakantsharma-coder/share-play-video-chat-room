@@ -20,8 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/context/SocketProvider.tsx", "src/screens/room.tsx", "src/services/peers.js"],
+  "exclude": ["node_modules"],
 }
