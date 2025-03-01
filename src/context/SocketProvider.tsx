@@ -13,8 +13,8 @@ interface SocketProviderProps {
 }
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
-  // const url: string = "https://webrtc-server-5106.onrender.com";
-  const url: string = 'http://localhost:8000';
+  const url: string = 'https://webrtc-server-5106.onrender.com';
+  // const url: string = 'http://localhost:8000';
   const socket = useMemo(() => io(url, { transports: ['websocket'], secure: true }), []);
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;

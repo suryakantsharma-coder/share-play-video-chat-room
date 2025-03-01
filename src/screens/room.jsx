@@ -4,11 +4,11 @@ import useWebRTC from '@/hooks/useWebRTC';
 import { Socket } from 'socket.io-client';
 import CallControls from '@/components/call-controls';
 import ReactPlayer from 'react-player';
-import Draggable from 'react-draggable';
 
 const RoomPage = () => {
-  const socket: Socket | null = useSocket();
+  const socket = useSocket();
   const {
+    videoRef,
     myStream,
     remoteStream,
     isIncomingCall,
@@ -21,6 +21,8 @@ const RoomPage = () => {
     handleNegoNeedIncoming,
     handleNegoNeedFinal,
     disconnectCall,
+    createDataChannel,
+    sendMessage,
   } = useWebRTC({ socket });
 
   useEffect(() => {
@@ -70,7 +72,22 @@ const RoomPage = () => {
         )}
       </div>
 
-      <div className="w-[100%] h-[10%]"></div>
+      <div className="w-[100%] h-[10%]">
+        <button
+          className="text-center text-[16px] bg-red-800 px-[18px] p-[10px] rounded-[6px] cursor-pointer"
+          onClick={createDataChannel}
+        >
+          create data channel
+        </button>
+        <button
+          className="text-center text-[16px] bg-red-800 px-[18px] p-[10px] rounded-[6px] cursor-pointer"
+          onClick={() => {
+            sendMessage('hello');
+          }}
+        >
+          Send Message
+        </button>
+      </div>
 
       <div className="w-[100%] h-[80%]">
         <div className="w-[100%]  flex justify-center">
@@ -86,7 +103,7 @@ const RoomPage = () => {
 
         {remoteStream && (
           <div className="w-[100%] h-[100%] flex justify-center mt-[10px]">
-            <div className="w-[95%] h-[90%] grid grid-cols-2 gap-[20px]">
+            <div className="w-[40%] h-[90%] grid grid-cols-2 gap-[20px]">
               {[myStream, remoteStream].map((stream, index) => (
                 <div className="rounded-[20px] border border-[red] overflow-hidden">
                   <ReactPlayer
@@ -96,6 +113,7 @@ const RoomPage = () => {
                     style={{
                       backgroundColor: '#202020',
                     }}
+                    muted={index === 0 || index === 2}
                     playing
                     url={stream}
                     className="w-full h-[100%] rounded-[20px]overflow-hidden object-cover bg-[#3C4043]"
@@ -104,17 +122,31 @@ const RoomPage = () => {
               ))}
               {/* {remoteStream && (
                 <ReactPlayer
-                  width={'100%'}
-                  height={'100%'}
-                  style={{
-                    backgroundColor: '#202020',
-                    border: '2px solid blue',
+                width={'100%'}
+                height={'100%'}
+                style={{
+                  backgroundColor: '#202020',
+                  border: '2px solid blue',
                   }}
                   playing
                   url={remoteStream}
                   className="w-full h-[100%] rounded-[20px]overflow-hidden object-cover bg-[#3C4043]"
-                />
-              )} */}
+                  />
+                  )} */}
+            </div>
+            <div className="w-[60%] h-[90%] rounded-[20px] border border-[red] overflow-hidden">
+              <ReactPlayer
+                ref={videoRef}
+                width={'100%'}
+                height={'100%'}
+                style={{
+                  backgroundColor: '#202020',
+                }}
+                playing
+                controls
+                url={'https://www.youtube.com/watch?v=B29ynpt7kIg'}
+                className="w-full h-[100%] rounded-[20px]overflow-hidden object-cover bg-[#3C4043]"
+              />
             </div>
           </div>
         )}

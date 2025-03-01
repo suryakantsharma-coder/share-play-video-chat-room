@@ -13,6 +13,13 @@ class PeerService {
     }
   }
 
+  get connection(): RTCPeerConnection {
+    if (!this.peer) {
+      throw new Error('Peer connection is not initialized.');
+    }
+    return this.peer;
+  }
+
   async getAnswer(offer: RTCSessionDescriptionInit) {
     if (this.peer) {
       await this.peer.setRemoteDescription(offer);
