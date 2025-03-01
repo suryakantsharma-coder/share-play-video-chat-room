@@ -28,8 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/context/SocketProvider.tsx",
-    "src/screens/room.tsx",
-    "src/services/peers.ts"
+    "src/screens/room.jsx",
+    "src/services/peers.ts",
+    "src/hooks/useWebRTC.js"
   ],
   "exclude": ["node_modules", "src/services/peers.ts"]
 }
