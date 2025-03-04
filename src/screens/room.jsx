@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useSocket } from '@/context/SocketProvider';
+import { useWebSocket } from '@/context/SocketProvider';
 import useWebRTC from '@/hooks/useWebRTC';
-import { Socket } from 'socket.io-client';
 import CallControls from '@/components/call-controls';
 import ReactPlayer from 'react-player';
 
 const RoomPage = () => {
-  const socket = useSocket();
+  const socket = useWebSocket();
   const {
     videoRef,
     myStream,
@@ -25,35 +24,35 @@ const RoomPage = () => {
     sendMessage,
   } = useWebRTC({ socket });
 
-  useEffect(() => {
-    if (socket !== null) {
-      socket.on('user:joined', handleUserJoined);
-      socket.on('incomming:call', handleIncomingCall);
-      socket.on('call:accepted', handleCallAccepted);
-      socket.on('peer:nego:needed', handleNegoNeedIncoming);
-      socket.on('peer:nego:final', handleNegoNeedFinal);
-      socket.on('call:sendStream', (e) => {
-        console.log({ e });
-        sendStreams();
-      });
-    }
-    return () => {
-      if (socket !== null) {
-        socket.off('user:joined', handleUserJoined);
-        socket.off('incomming:call', handleIncomingCall);
-        socket.off('call:accepted', handleCallAccepted);
-        socket.off('peer:nego:needed', handleNegoNeedIncoming);
-        socket.off('peer:nego:final', handleNegoNeedFinal);
-      }
-    };
-  }, [
-    socket,
-    handleUserJoined,
-    handleIncomingCall,
-    handleCallAccepted,
-    handleNegoNeedIncoming,
-    handleNegoNeedFinal,
-  ]);
+  // useEffect(() => {
+  //   if (socket !== null) {
+  //     socket.on('user:joined', handleUserJoined);
+  //     socket.on('incomming:call', handleIncomingCall);
+  //     socket.on('call:accepted', handleCallAccepted);
+  //     socket.on('peer:nego:needed', handleNegoNeedIncoming);
+  //     socket.on('peer:nego:final', handleNegoNeedFinal);
+  //     socket.on('call:sendStream', (e) => {
+  //       console.log({ e });
+  //       sendStreams();
+  //     });
+  //   }
+  //   return () => {
+  //     if (socket !== null) {
+  //       socket.off('user:joined', handleUserJoined);
+  //       socket.off('incomming:call', handleIncomingCall);
+  //       socket.off('call:accepted', handleCallAccepted);
+  //       socket.off('peer:nego:needed', handleNegoNeedIncoming);
+  //       socket.off('peer:nego:final', handleNegoNeedFinal);
+  //     }
+  //   };
+  // }, [
+  //   socket,
+  //   handleUserJoined,
+  //   handleIncomingCall,
+  //   handleCallAccepted,
+  //   handleNegoNeedIncoming,
+  //   handleNegoNeedFinal,
+  // ]);
 
   useEffect(() => {
     handleSubmitForm();

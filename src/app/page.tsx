@@ -1,16 +1,13 @@
-"use client"; // For Next.js App Router compatibility
-
-import IPC from '@/components/inital-permission-component';
+'use client';
+import InitialScreen from '@/screens/initial-screen';
 import React from 'react';
-
 const MediaStreamComponent = () => {
-   
-
-    return (
-        <div>
-          <IPC />
-        </div>
-    );
+  return (
+    <div>
+      <InitialScreen />
+      {/* <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginFailure} /> */}
+    </div>
+  );
 };
 
 export default MediaStreamComponent;

@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/context/SocketProvider.tsx",
+    "src/context/SocketProviderD.tsx",
     "src/screens/room.jsx",
     "src/services/peers.ts",
     "src/hooks/useWebRTC.js"
